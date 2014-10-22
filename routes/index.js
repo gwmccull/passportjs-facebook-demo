@@ -22,6 +22,7 @@ module.exports = function(passport) {
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function (req, res) {
 		res.render('home', { user: req.user });
+		//res.json(req.user);
 	});
 
 	/* Handle Logout */
@@ -37,12 +38,8 @@ module.exports = function(passport) {
 		}
 	);
 	router.get('/auth/facebook/callback',
-		passport.authenticate('facebook', { failureRedirect: '/' }),
-		function (req, res) {
-			//console.log(req);
-			res.redirect('/home');
-		}
+		passport.authenticate('facebook', { successRedirect: '/home', failureRedirect: '/' })
 	);
 
 	return router;
-}
+};

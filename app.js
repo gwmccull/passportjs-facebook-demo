@@ -14,13 +14,6 @@ mongoose.connect(dbConfig.url);
 var app = express();
 
 var passport = require('passport');
-app.use(passport.initialize());
-app.use(passport.session());
-
-var auth = require('./passport/auth')(passport);
-
-var routes = require('./routes/index')(passport);
-var users = require('./routes/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +27,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'passport-facebook', saveUninitialized: true, resave: true }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+var auth = require('./passport/auth')(passport);
+var routes = require('./routes/index')(passport);
+var users = require('./routes/users');
 
 app.use('/', routes);
 app.use('/users', users);

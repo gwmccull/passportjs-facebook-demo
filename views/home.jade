@@ -1,6 +1,6 @@
 extends layout
 block content
     h1= title
-    p Welcome to PassportJS
+    p Welcome, #{user.firstName} #{user.lastName}
     p
         a(href='/signout' class='btn btn-link') Logout
