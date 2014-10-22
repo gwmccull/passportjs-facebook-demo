@@ -13,7 +13,7 @@ module.exports = function(passport) {
 	});
 	passport.deserializeUser(function(user, done) {
 		console.log('user', user);
-		User.findById(user.oauthId, function(err, user) {
+		User.find({oauthId: user.oauthId}, function(err, user) {
 			console.log('deserializing user:',user);
 			done(err, user);
 		});
